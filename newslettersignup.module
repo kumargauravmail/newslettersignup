@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Newsletter signup.
+ */
+
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_mail().
+ */
+function newslettersignup_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'signup_notify':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+
+      $message['subject'] = t('Newsletter Signup');
+
+      $message_body = '<b>' . t('Name'). ':</b> ' . $params['message']['newsletteryourname'];
+      $message_body .= '<br /><b>' . t('Company Name') . ':</b> ' . $params['message']['newslettercompanyname'];
+      $message_body .= '<br /><b>' . t('Email') . ':</b> ' . $params['message']['newsletteryouremail'];
+      
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed;';
+	
+      $message['body'][] = Html::escape($message_body);
+      break;
+  }
+}

@@ -1,0 +1,6 @@
+name: Newsletter Signup
+type: module
+description: 'A simple newsletter signup form'
+package: Newsletter
+version: 1.0
+core: 8.x
