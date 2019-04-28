@@ -17,13 +17,32 @@ function newslettersignup_mail($key, &$message, $params) {
 
       $message['subject'] = t('Newsletter Signup');
 
-      $message_body = '<b>' . t('Name'). ':</b> ' . $params['message']['newsletteryourname'];
-      $message_body .= '<br /><b>' . t('Company Name') . ':</b> ' . $params['message']['newslettercompanyname'];
-      $message_body .= '<br /><b>' . t('Email') . ':</b> ' . $params['message']['newsletteryouremail'];
+      $message_body['name'] = $params['message']['newsletteryourname'];
+      $message_body['company_name'] = $params['message']['newslettercompanyname'];
+      $message_body['email'] = $params['message']['newsletteryouremail'];
       
+      /**
+       * Assign a twig template for message body
+       */
+      $message_theme_body = array(
+        '#theme' => 'newslettersignup_notify_email',
+        '#message_body' => $message_body,
+       );
+      
+      $message_render = drupal_render($message_theme_body);
+      $message['body'][] = Html::escape($message_render);
       $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed;';
-	
-      $message['body'][] = Html::escape($message_body);
       break;
   }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function newslettersignup_theme($existing, $type, $theme, $path) {
+  return [
+    'newslettersignup_notify_email' => [
+      'variables' => ['message_body' => NULL],
+    ],
+  ];
 }
