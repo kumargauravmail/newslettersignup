@@ -2,6 +2,6 @@ name: Newsletter Signup
 type: module
 description: 'A simple newsletter signup form'
 package: Newsletter
-version: 1.0
+version: 2.0
 core: 8.x
 configure: newslettersignup.admin_settings_form
