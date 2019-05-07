@@ -8,6 +8,8 @@ dependencies:
     - node.type.newsletter_signup_list
   module:
     - path
+_core:
+  default_config_hash: heKw9Oza_QRb7xaPcs7TgdazUfCdc_MY_DtbkyYxm6U
 id: node.newsletter_signup_list.default
 targetEntityType: node
 bundle: newsletter_signup_list

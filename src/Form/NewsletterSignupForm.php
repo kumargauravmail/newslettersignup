@@ -9,6 +9,7 @@ namespace Drupal\newslettersignup\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Newsletter signup form.
@@ -86,6 +87,23 @@ class NewsletterSignupForm extends FormBase {
     $newsletteryourname = trim($form_state->getValue('newsletteryourname'));
     $newslettercompanyname = trim($form_state->getValue('newslettercompanyname'));
     $newsletteryouremail = trim($form_state->getValue('newsletteryouremail'));
+    
+    /**
+     * Save newsletter signup form data in content type "Newsletter Signup"
+     */
+    $node = Node::create([
+      'type' => 'newsletter_signup_list',
+      'langcode' => 'en',
+      'created' => REQUEST_TIME,
+      'changed' => REQUEST_TIME,
+      // Default admin user ID.
+      'uid' => 1,
+      'title' => t('Newsletter Signup'),
+      'field_newsletter_signup_name' => $newsletteryourname,
+      'field_newsletter_signup_company' => $newslettercompanyname,
+      'field_newsletter_signup_email' => $newsletteryouremail,
+    ]);
+    $node->save();
     
     /**
      * Get the email address to which email to be sent 
