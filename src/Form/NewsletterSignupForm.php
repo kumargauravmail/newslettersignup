@@ -123,8 +123,12 @@ class NewsletterSignupForm extends FormBase {
       $to = $newslettersignup_admin_email;
       
       $result = $mail_manager->mail('newslettersignup', 'signup_notify', $to, $langcode, $params, NULL, 'true');
-	  drupal_set_message(t('Thanks ' . $newsletteryourname . '! You have been successfully signed up.'));
    }
+   
+   /**
+    * Display thanks message to the visitor
+    */
+   \Drupal::messenger()->addStatus(t('Thanks ' . $newsletteryourname . '! You have been successfully signed up.'));
   }
  
 }

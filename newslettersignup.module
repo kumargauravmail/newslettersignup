@@ -29,7 +29,7 @@ function newslettersignup_mail($key, &$message, $params) {
         '#message_body' => $message_body,
        );
       
-      $message_render = drupal_render($message_theme_body);
+      $message_render = \Drupal::service('renderer')->render($message_theme_body);
       $message['body'][] = Html::escape($message_render);
       $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed;';
       break;
